@@ -9,7 +9,6 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
-*/
 
 Route::get('/', 'WelcomeController@index');
 
@@ -19,3 +18,11 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+*/
+
+// api
+Route::group(['prefix' => 'api', 'namespace' => 'WechatApi'],
+  function(){
+    Route::get('/', 'HomeController@index');
+  }
+);
