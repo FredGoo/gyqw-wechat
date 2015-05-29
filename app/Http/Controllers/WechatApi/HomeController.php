@@ -9,12 +9,12 @@ use wechat;
 
 class HomeController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index(){
+  /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
+  public function index(){
     $options = array(
       'token' => 'aaa',
       'encodingaeskey' => 'encoding',
@@ -24,5 +24,5 @@ class HomeController extends Controller {
 
     $wechat = new Wechat($options);
     echo 'hello';
-	}
+  }
 }
