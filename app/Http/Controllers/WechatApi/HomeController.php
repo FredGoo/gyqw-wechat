@@ -16,13 +16,13 @@ class HomeController extends Controller {
    */
   public function index(){
     $options = array(
-      'token' => 'aaa',
-      'encodingaeskey' => 'encoding',
-      'appid' => 'id',
-      'appsecret' => 'secret'
+      'token' => env('WECHAT_TOKEN'),
+      'encodingaeskey' => env('WECHAT_ENCODINGAESKEY'),
+      'appid' => env('WECHAT_APPID'),
+      'appsecret' => env('WECHAT_APPSECRET') 
     );
 
     $wechat = new Wechat($options);
-    echo 'hello';
+    $wechat->valid();
   }
 }
