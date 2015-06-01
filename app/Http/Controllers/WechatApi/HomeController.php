@@ -10,7 +10,7 @@ use wechat;
 class HomeController extends Controller {
 
   /**
-   * Display a listing of the resource.
+   * valid wechat connect
    *
    * @return Response
    */
@@ -24,5 +24,11 @@ class HomeController extends Controller {
 
     $wechat = new Wechat($options);
     $wechat->valid();
+  }
+
+  /**
+   * wechat page login
+   */
+  public function login($access_token){
   }
 }
