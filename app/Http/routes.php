@@ -14,7 +14,7 @@
 // wechat server api
 Route::group(['prefix' => 'api', 'namespace' => 'WechatApi'],function(){
     Route::get('/', 'HomeController@index');
-    Route::get('login', 'HomeController@login');
+    Route::get('login/{accessToken}', 'HomeController@login');
 });
 
 // page

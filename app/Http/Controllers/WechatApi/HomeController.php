@@ -29,6 +29,7 @@ class HomeController extends Controller {
   /**
    * wechat page login
    */
-  public function login($access_token){
+  public function login($accessToken){
+    return $accessToken;
   }
 }
