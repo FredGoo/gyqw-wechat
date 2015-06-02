@@ -24,6 +24,9 @@ class HomeController extends Controller {
 
     $wechat = new Wechat($options);
     $wechat->valid();
+
+    $wechat->text('gyqw');
+    $wechat->reply();
   }
 
   /**
