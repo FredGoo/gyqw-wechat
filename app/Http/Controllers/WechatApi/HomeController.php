@@ -26,7 +26,7 @@ class HomeController extends Controller {
     $wechat->valid();
 
     $wechat->getRev();
-    $res = $wechat->reply('gyqw', true);
+    $res = $wechat->text('gyqw')->reply('', true);
     \Log::info('wechat response xml'.$res);
 
     echo $res;
