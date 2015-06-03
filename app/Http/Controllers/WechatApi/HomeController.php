@@ -19,14 +19,17 @@ class HomeController extends Controller {
       'token' => env('WECHAT_TOKEN'),
       'encodingaeskey' => env('WECHAT_ENCODINGAESKEY'),
       'appid' => env('WECHAT_APPID'),
-      'appsecret' => env('WECHAT_APPSECRET') 
+      'appsecret' => env('WECHAT_APPSECRET')
     );
 
     $wechat = new Wechat($options);
     $wechat->valid();
 
-    $wechat->text('gyqw');
-    $wechat->reply();
+    $wechat->getRev();
+    $res = $wechat->reply('gyqw', true);
+    \Log::info('wechat response xml'.$res);
+
+    echo $res;
   }
 
   /**
