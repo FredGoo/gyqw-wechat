@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 use wechat;
 
 class HomeController extends Controller {
+  // wechat hepler
+  private $wechat = null;
 
   /**
-   * valid wechat connect
+   * 校验微信信息来源，并分发请求
    *
    * @return Response
    */
   public function index(){
+    // 威信初始化
     $options = array(
       'token' => env('WECHAT_TOKEN'),
       'encodingaeskey' => env('WECHAT_ENCODINGAESKEY'),
@@ -22,13 +25,42 @@ class HomeController extends Controller {
       'appsecret' => env('WECHAT_APPSECRET')
     );
 
-    $wechat = new Wechat($options);
-    $wechat->valid();
+    $this->wechat = new Wechat($options);
+    // 验证信息是从微信服务器发来的
+    $this->wechat->valid();
 
-    $wechat->getRev();
-    $res = $wechat->text('gyqw')->reply('', true);
-    \Log::info('wechat response xml'.$res);
+    // 回复微信信息
+    $msgType = $this->wechat->getRev()->getRevType;
+    switch($msgType){
+    case Wechat::MSGTYPE_TEXT:
+      $this->responseOnText($this->wechat->getRevData);
+      break;
+    }
+  }
 
+  /**
+   * 回复微信文字信息
+   *
+   * @param string $text
+   *
+   * @return void
+   */
+  public function responseOnText($text){
+    // 记录传来的数据
+    \Log::info('wechat request data '.var_dump($text));
+
+    switch($text){
+    case 'menu':
+      $resStr = 'menu';
+      break;
+    default:
+      $resStr = '爱你宝贝';
+      break;
+    }
+
+    // 返回威信信息
+    $res = $this->wechat->text($resStr)->reply('', true);
+    \Log::info('wechat response xml '.$res);
     echo $res;
   }
 
