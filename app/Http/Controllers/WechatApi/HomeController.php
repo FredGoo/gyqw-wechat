@@ -30,10 +30,10 @@ class HomeController extends Controller {
     $this->wechat->valid();
 
     // 回复微信信息
-    $msgType = $this->wechat->getRev()->getRevType;
+    $msgType = $this->wechat->getRev()->getRevType();
     switch($msgType){
     case Wechat::MSGTYPE_TEXT:
-      $this->responseOnText($this->wechat->getRevData);
+      $this->responseOnText($this->wechat->getRevData());
       break;
     }
   }
@@ -41,15 +41,18 @@ class HomeController extends Controller {
   /**
    * 回复微信文字信息
    *
-   * @param string $text
+   * @param array $data
    *
    * @return void
    */
-  public function responseOnText($text){
+  public function responseOnText($data){
     // 记录传来的数据
-    \Log::info('wechat request data '.var_dump($text));
+    \Log::info('wechat request data ### '.implode(' --- ', $data));
 
-    switch($text){
+    // 获取请求的字符串内容
+    $reqContentStr = strtolower(trim($data['Content']));
+
+    switch($reqContentStr){
     case 'menu':
       $resStr = 'menu';
       break;
@@ -58,7 +61,7 @@ class HomeController extends Controller {
       break;
     }
 
-    // 返回威信信息
+    // 返回微信信息
     $res = $this->wechat->text($resStr)->reply('', true);
     \Log::info('wechat response xml '.$res);
     echo $res;
