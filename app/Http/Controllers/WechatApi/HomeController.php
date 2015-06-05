@@ -11,14 +11,9 @@ class HomeController extends Controller {
   // wechat hepler
   private $wechat = null;
 
-  /**
-   * 校验微信信息来源，并分发请求
-   *
-   * @return Response
-   *
-   */
-  public function index(){
-    // 微信初始化
+  public function __construct(){
+
+    // 初始化wechat helper
     $options = array(
       'token' => env('WECHAT_TOKEN'),
       'encodingaeskey' => env('WECHAT_ENCODINGAESKEY'),
@@ -27,6 +22,15 @@ class HomeController extends Controller {
     );
 
     $this->wechat = new Wechat($options);
+  }
+
+  /**
+   * 校验微信信息来源，并分发请求
+   *
+   * @return Response
+   *
+   */
+  public function index(){
     // 验证信息是从微信服务器发来的
     $this->wechat->valid();
 
@@ -111,6 +115,7 @@ class HomeController extends Controller {
    *
    */
   public function login(){
+    echo 'Loading...';
     $data = $this->wechat->getOauthAccessToken();
 
     // 登录成功
