@@ -15,9 +15,10 @@ class HomeController extends Controller {
    * 校验微信信息来源，并分发请求
    *
    * @return Response
+   *
    */
   public function index(){
-    // 威信初始化
+    // 微信初始化
     $options = array(
       'token' => env('WECHAT_TOKEN'),
       'encodingaeskey' => env('WECHAT_ENCODINGAESKEY'),
@@ -44,6 +45,7 @@ class HomeController extends Controller {
    * @param array $data
    *
    * @return void
+   *
    */
   public function responseOnText($data){
     // 记录传来的数据
@@ -53,7 +55,10 @@ class HomeController extends Controller {
     $reqContentStr = strtolower(trim($data['Content']));
 
     switch($reqContentStr){
+    // 设置菜单
     case 'menu':
+      $this->wechat->createMenu($this->getMenuData());
+
       $resStr = 'menu';
       break;
     default:
@@ -68,7 +73,42 @@ class HomeController extends Controller {
   }
 
   /**
+   * 微信菜单数据
+   *
+   * @return array
+   *
+   */
+  private function getMenuData(){
+    $menu = array(
+      'button' => [
+        array(
+          'type' => 'view',
+          'name' => '赞?!',
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+        )
+      ]
+    );
+
+    return $menu;
+  }
+
+  /**
+   * 获取微信网页登录链接
+   *
+   * @param string $callback
+   * @param string $state
+   * @param string $scope
+   *
+   * @return string
+   *
+   */
+  private function getWebLoginURL($callback, $state, $scope){
+    return $this->wechat->getOauthRedirect($callback, $state, $scope);
+  }
+
+  /**
    * wechat page login
+   *
    */
   public function login($accessToken){
     return $accessToken;
