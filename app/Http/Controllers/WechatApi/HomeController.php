@@ -110,7 +110,14 @@ class HomeController extends Controller {
    * wechat page login
    *
    */
-  public function login($accessToken){
-    return $accessToken;
+  public function login(){
+    $data = $this->wechat->getOauthAccessToken();
+
+    if($data){
+      echo $openID = $data['openid'];
+      \Log:info('openID: '.$openID.' logged');
+    }else{
+      \Log:error('wechat login failed, code: '.\Request::input('code'));
+    }
   }
 }
