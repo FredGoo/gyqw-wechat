@@ -12,12 +12,11 @@ class Registrar implements RegistrarContract {
 	 * @param  array  $data
 	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
-	public function validator(array $data)
-	{
+	public function validator(array $data){
 		return Validator::make($data, [
-			'name' => 'required|max:255',
-			'email' => 'required|email|max:255|unique:users',
-			'password' => 'required|confirmed|min:6',
+			'open_id' => 'required|max:255',
+			'create_time' => 'required',
+			'status' => 'required',
 		]);
 	}
 
@@ -27,13 +26,11 @@ class Registrar implements RegistrarContract {
 	 * @param  array  $data
 	 * @return User
 	 */
-	public function create(array $data)
-	{
+	public function create(array $data){
 		return User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
-			'password' => bcrypt($data['password']),
+			'open_id' => $data['name'],
+			'create_time' => $data['date'],
+			'status' => $data['status'],
 		]);
 	}
-
 }
