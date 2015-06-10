@@ -47,7 +47,6 @@ class HomeController extends Controller {
    * 回复微信文字信息
    *
    * @param array $data
-   *
    * @return void
    *
    */
@@ -102,7 +101,6 @@ class HomeController extends Controller {
    * @param string $callback
    * @param string $state
    * @param string $scope
-   *
    * @return string
    *
    */
