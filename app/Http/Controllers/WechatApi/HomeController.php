@@ -12,7 +12,6 @@ class HomeController extends Controller {
   private $wechat = null;
 
   public function __construct(){
-
     // 初始化wechat helper
     $options = array(
       'token' => env('WECHAT_TOKEN'),
@@ -91,7 +90,7 @@ class HomeController extends Controller {
         ),
         array(
           'type' => 'view',
-          'name' => '批赞',
+          'name' => '批准赞',
           'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
         ),
         array(
