@@ -86,7 +86,17 @@ class HomeController extends Controller {
       'button' => [
         array(
           'type' => 'view',
-          'name' => '赞?!',
+          'name' => '给我赞',
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+        ),
+        array(
+          'type' => 'view',
+          'name' => '批赞',
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+        ),
+        array(
+          'type' => 'view',
+          'name' => '我的赞',
           'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
         )
       ]
