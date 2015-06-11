@@ -131,6 +131,9 @@ class HomeController extends Controller {
       \Log::info('openID: '.$openID.' logged');
 
       \Session::put('openID', $openID);
+
+      // 跳转到相应页面
+      $url = action('\App\Http\Controllers\HomeController@applyZan');
     // 登录失败
     }else{
       \Log::error('wechat login failed, code: '.\Request::input('code'));
