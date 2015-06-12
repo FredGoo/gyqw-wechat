@@ -134,6 +134,7 @@ class HomeController extends Controller {
 
       // 跳转到相应页面
       $url = action('\App\Http\Controllers\HomeController@applyZan');
+      return \Redirect::to($url);
     // 登录失败
     }else{
       \Log::error('wechat login failed, code: '.\Request::input('code'));
