@@ -23,3 +23,5 @@ Route::get('/', function(){
 });
 // 申请赞
 Route::get('apply-zan', 'HomeController@applyZan');
+// 提交申请赞
+Route::post('submit-apply-zan', 'HomeController@submitApplyZan');

@@ -13,8 +13,20 @@ class HomeController extends Controller {
   /**
    * 申请一个赞
    *
+   * @return void
+   *
    */
   public function applyZan(){
     return view('applyZan');
+  }
+
+  /**
+   * 申请一个赞
+   *
+   * @return void
+   *
+   */
+  public function submitApplyZan(){
+    var_dump($_POST);
   }
 }
