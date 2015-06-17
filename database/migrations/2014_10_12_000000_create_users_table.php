@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('wechat_open_id');
 			$table->string('email')->unique();
 			$table->string('password', 60);
 			$table->rememberToken();
