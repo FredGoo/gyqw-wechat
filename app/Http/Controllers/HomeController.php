@@ -34,7 +34,7 @@ class HomeController extends Controller {
 
     if($title && $num && $content && $date){
       // 插入数据
-      $res = \DB::insert('insert into zan.`order` (title, num, content, from_user, to_user, created_at, updated_at) values ("'.$title.'", '.$num.', "'.$content.'", 11, 22, "'.$date.'", "'.$date.'")');
+      $res = \DB::insert('insert into zan.`order` (title, num, content, from_user, to_user, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [$title, $num, $content, 11, 22, $date, $date]);
 
       \Log::info('insert into order '.var_export($res ,true));
       if($res){
