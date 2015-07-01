@@ -124,13 +124,16 @@ class HomeController extends Controller {
   public function login(){
     echo 'Loading...';
     $data = $this->wechat->getOauthAccessToken();
+    // $data['openid'] = 'oT1jZsuJDKBQvaGaghckYCpPDNlo';
 
     // 登录成功
     if($data){
       $openID = $data['openid'];
-      \Log::info('openID: '.$openID.' logged');
+      $userInfo = \DB::table('users')->where('wechat_open_id', $openID)->first();
+      \Log::info('openID: '.$openID.', userID: '.$userInfo->id.' logged');
 
       \Session::put('openID', $openID);
+      \Session::put('userID', $userInfo->id);
 
       // 跳转到相应页面
       $url = action('\App\Http\Controllers\HomeController@applyZan');

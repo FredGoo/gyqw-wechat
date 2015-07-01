@@ -31,10 +31,12 @@ class HomeController extends Controller {
     $num = \Request::input('num'); // 赞的数量
     $content = \Request::input('content'); // 赞的内容
     $date = date('Y-m-d H:i:s');
+    $from_user = \Session::get('userID');
+    $to_user = $this->getTheOne($from_user);
 
     if($title && $num && $content && $date){
       // 插入数据
-      $res = \DB::insert('insert into zan.`order` (title, num, content, from_user, to_user, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [$title, $num, $content, 11, 22, $date, $date]);
+      $res = \DB::insert('insert into zan.`order` (title, num, content, from_user, to_user, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [$title, $num, $content, $from_user, $to_user, $date, $date]);
 
       \Log::info('insert into order '.var_export($res ,true));
       if($res){
@@ -46,4 +48,17 @@ class HomeController extends Controller {
       echo 'lack of params';
     }
   }
+
+  /**
+   * get the one
+   *
+   * @param $from_user
+   * @return int
+   *
+   */
+   public function getTheOne($from){
+     $res = \DB::table('users')->where('id', $from)->pluck('the_one');
+
+     return $res;
+   }
 }
