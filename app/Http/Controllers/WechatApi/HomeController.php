@@ -86,17 +86,17 @@ class HomeController extends Controller {
         array(
           'type' => 'view',
           'name' => '给我赞',
-          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login/apply', 'gyqw', 'snsapi_base')
         ),
         array(
           'type' => 'view',
           'name' => '批准赞',
-          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login/approve', 'gyqw', 'snsapi_base')
         ),
         array(
           'type' => 'view',
           'name' => '我的赞',
-          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login', 'gyqw', 'snsapi_base')
+          'url' => $this->getWebLoginURL('http://zan.shihuang.org/api/login/orderList', 'gyqw', 'snsapi_base')
         )
       ]
     );
@@ -121,7 +121,7 @@ class HomeController extends Controller {
    * wechat page login
    *
    */
-  public function login(){
+  public function login($redirect){
     echo 'Loading...';
     $data = $this->wechat->getOauthAccessToken();
     // $data['openid'] = 'oT1jZsuJDKBQvaGaghckYCpPDNlo';
@@ -136,11 +136,34 @@ class HomeController extends Controller {
       \Session::put('userID', $userInfo->id);
 
       // 跳转到相应页面
-      $url = action('\App\Http\Controllers\HomeController@applyZan');
+      switch($redirect){
+      case 'apply':
+        $url = action('\App\Http\Controllers\HomeController@applyZan');
+        break;
+      case 'approve':
+        $url = action('\App\Http\Controllers\HomeController@approveZan');
+        break;
+      case 'orderList':
+        $url = action('\App\Http\Controllers\HomeController@orderList');
+        break;
+      }
       return \Redirect::to($url);
     // 登录失败
     }else{
       \Log::error('wechat login failed, code: '.\Request::input('code'));
     }
+  }
+
+  /**
+   * test inject data
+   *
+   * @return json
+   *
+   */
+  public function testInjectSession($openID, $userID){
+    \Session::put('openID', $openID);
+    \Session::put('userID', $userID);
+
+    echo json_encode(\Session::all());
   }
 }
