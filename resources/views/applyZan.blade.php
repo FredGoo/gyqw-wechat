@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
+				<div class="panel-heading"></div>
 				<div class="panel-body">
           <!-- apply form -->
           <form action="/submit-apply-zan" method="post">
