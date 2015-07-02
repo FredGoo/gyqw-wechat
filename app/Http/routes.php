@@ -29,4 +29,4 @@ Route::post('submit-apply-zan', 'HomeController@submitApplyZan');
 // 审批赞
 Route::get('approve-zan', 'HomeController@approveZan');
 // 提交审批赞
-Route::post('submit-approve-zan', 'HomeController@submitApproveZan');
+Route::get('submit-approve-zan/{orderID?}/{status?}', 'HomeController@submitApproveZan');

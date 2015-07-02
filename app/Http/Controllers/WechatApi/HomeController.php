@@ -119,6 +119,8 @@ class HomeController extends Controller {
 
   /**
    * wechat page login
+   * @param string $redirect
+   * @return void
    *
    */
   public function login($redirect){

@@ -9,10 +9,12 @@
 				<div class="panel-body">
           <!-- apply form -->
           <form action="/submit-apply-zan" method="post">
+            <!--
             <div class="form-group">
               <label>标题</label>
               <input type="text" class="form-control" name="title">
             </div>
+            -->
             <div class="form-group">
               <label>个数</label>
               <select class="form-control" name="num">
