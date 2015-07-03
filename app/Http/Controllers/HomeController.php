@@ -82,7 +82,7 @@ class HomeController extends Controller {
         $arr = [
           'openID' => $toUserInfo->wechat_open_id,
           'tplID' => 'Wjv0qtHVQC6pxAHxFR8I1JRukfEtiy2bDVKouv9-RMU',
-          'url' => action('\App\Http\Controllers\HomeController@approve'),
+          'url' => action('\App\Http\Controllers\HomeController@approveZan'),
           'num' => $num,
           'date' => $date,
           'content' => $content,
