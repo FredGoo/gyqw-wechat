@@ -30,3 +30,5 @@ Route::post('submit-apply-zan', 'HomeController@submitApplyZan');
 Route::get('approve-zan', 'HomeController@approveZan');
 // 提交审批赞
 Route::get('submit-approve-zan/{orderID?}/{status?}', 'HomeController@submitApproveZan');
+// 个人中心
+Route::get('my', 'HomeController@my');

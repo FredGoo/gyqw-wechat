@@ -22,7 +22,7 @@ class HomeController extends Controller {
   }
 
   /**
-   * 申请一个赞
+   * 提交申请一个赞
    *
    * @return void
    *
@@ -72,7 +72,7 @@ class HomeController extends Controller {
   }
 
   /**
-   * 审批一个赞
+   * 提交审批一个赞
    *
    * @param int $orderID
    * @param string $status
@@ -113,6 +113,29 @@ class HomeController extends Controller {
 
     $url = action('\App\Http\Controllers\HomeController@approveZan');
     return \Redirect::to($url);
+  }
+
+  /**
+   * 个人中心
+   *
+   * @return void
+   *
+   */
+  public function my(){
+    $userID = \Session::get('userID');
+
+    // 获取订单数据
+    $orders = \DB::table('order')->where(array(
+      'from_user' => $userID,
+      'status' => 200,
+    ))->get();
+
+    // 获取个人信息
+    $profile = \DB::table('users')->where(array(
+      'id' => $userID,
+    ))->first();
+
+    return view('my', ['profile' => $profile, 'orders' => $orders]);
   }
 
   /**
