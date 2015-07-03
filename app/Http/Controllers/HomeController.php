@@ -122,6 +122,10 @@ class HomeController extends Controller {
     if($orderInfo && isset($status)){
       // 现在时间
       $date = date('Y-m-d H:i:s');
+      $fromUserInfo = \DB::table('users')->where([
+      'id' => $orderInfo->from_user,
+    ])->first();
+;
 
       switch($status){
       // rejected
@@ -137,7 +141,7 @@ class HomeController extends Controller {
 
       // approved
       case 'ok':
-        \DB::transaction(function()use($orderInfo){
+        \DB::transaction(function()use($orderInfo, $date){
           \DB::table('order')->where([
             'id' => $orderInfo->id,
             'status' => 0
@@ -155,14 +159,15 @@ class HomeController extends Controller {
 
       // 发送模板信息
       $arr = [
-        'openID' => $orderInfo->from_user,
+        'openID' => $fromUserInfo->wechat_open_id,
         'tplID' => 'QyTb7PLhkm9tG2HRMHAtB2UluGE0fwCEuGnL8uyiS3c',
-        'url' => action('\App\Http\Controllers\HomeController@my');
+        'url' => action('\App\Http\Controllers\HomeController@my'),
         'num' => $orderInfo->num,
         'date' => $date,
         'content' => $orderInfo->content,
         'result' => $resStr
       ];
+
       $this->sendTpl($arr);
     }
 
