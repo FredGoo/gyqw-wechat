@@ -75,6 +75,20 @@ class HomeController extends Controller {
 
       \Log::info('insert into order '.var_export($res ,true));
       if($res){
+        // 发送模板信息
+        $toUserInfo = \DB::table('users')->where([
+          'id' => $to_user,
+        ])->first();
+        $arr = [
+          'openID' => $toUserInfo->wechat_open_id,
+          'tplID' => 'Wjv0qtHVQC6pxAHxFR8I1JRukfEtiy2bDVKouv9-RMU',
+          'url' => action('\App\Http\Controllers\HomeController@approve'),
+          'num' => $num,
+          'date' => $date,
+          'content' => $content,
+        ];
+
+        $this->sendTpl($arr);
         echo 'success';
       }else{
         echo 'fail';
@@ -160,7 +174,7 @@ class HomeController extends Controller {
       // 发送模板信息
       $arr = [
         'openID' => $fromUserInfo->wechat_open_id,
-        'tplID' => 'QyTb7PLhkm9tG2HRMHAtB2UluGE0fwCEuGnL8uyiS3c',
+        'tplID' => '9jqPzyngkwInM073oSTZkIg47D8eSnIVuQYHzaP8vxk',
         'url' => action('\App\Http\Controllers\HomeController@my'),
         'num' => $orderInfo->num,
         'date' => $date,
