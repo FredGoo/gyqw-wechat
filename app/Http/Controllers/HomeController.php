@@ -86,6 +86,7 @@ class HomeController extends Controller {
           'num' => $num,
           'date' => $date,
           'content' => $content,
+          'result' => '',
         ];
 
         $this->sendTpl($arr);
