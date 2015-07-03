@@ -145,8 +145,8 @@ class HomeController extends Controller {
       case 'approve':
         $url = action('\App\Http\Controllers\HomeController@approveZan');
         break;
-      case 'orderList':
-        $url = action('\App\Http\Controllers\HomeController@orderList');
+      case 'my':
+        $url = action('\App\Http\Controllers\HomeController@my');
         break;
       }
       return \Redirect::to($url);
