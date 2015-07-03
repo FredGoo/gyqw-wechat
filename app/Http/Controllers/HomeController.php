@@ -120,13 +120,19 @@ class HomeController extends Controller {
     ])->first();
 
     if($orderInfo && isset($status)){
+      // 现在时间
+      $date = date('Y-m-d H:i:s');
+
       switch($status){
       // rejected
       case 'reject':
         \DB::table('order')->where([
           'id' => $orderInfo->id,
           'status' => 0
-        ])->update(['status' => 400]);
+        ])->update(['status' => 400, 'updated_at' => $date]);
+
+        // tpl的result文字信息
+        $resStr = '没有给哦';
         break;
 
       // approved
@@ -135,16 +141,29 @@ class HomeController extends Controller {
           \DB::table('order')->where([
             'id' => $orderInfo->id,
             'status' => 0
-          ])->update(['status' => 200]);
+          ])->update(['status' => 200, 'updated_at' => $date]);
           \DB::table('users')->where('id', $orderInfo->from_user)->increment('num', $orderInfo->num);
 
           // log
           \Log::info('add user '.$orderInfo->from_user.', '.$orderInfo->num.' zans');
         });
+
+        // tpl的result文字信息
+        $resStr = '得到啦';
         break;
       }
 
       // 发送模板信息
+      $arr = [
+        'openID' => $orderInfo->from_user,
+        'tplID' => 'QyTb7PLhkm9tG2HRMHAtB2UluGE0fwCEuGnL8uyiS3c',
+        'url' => action('\App\Http\Controllers\HomeController@my');
+        'num' => $orderInfo->num,
+        'date' => $date,
+        'content' => $orderInfo->content,
+        'result' => $resStr
+      ];
+      $this->sendTpl($arr);
     }
 
     $url = action('\App\Http\Controllers\HomeController@approveZan');
@@ -186,4 +205,40 @@ class HomeController extends Controller {
 
      return $res;
    }
+
+  /**
+   * 发送模板信息
+   *
+   * @param array $arr
+   * @return boolean
+   *
+   */
+  public function sendTpl($arr){
+    // 取得微信api实例
+    $api = new WechatApi\HomeController;
+
+    // 构造tpl数据
+    $data = [
+      'touser' => $arr['openID'],
+      'template_id' => $arr['tplID'],
+      'url' => $arr['url'],
+      'topcolor' => '#FF0000',
+      'data' => [
+        'num' => [
+          'value' => $arr['num']
+        ],
+        'date' =>[
+          'value' => $arr['date']
+        ],
+        'content' =>[
+          'value' => $arr['content']
+        ],
+        'result' =>[
+          'value' => $arr['result']
+        ],
+      ]
+    ];
+
+    return $api->sendTplMsg($data);
+  }
 }
