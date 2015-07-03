@@ -157,6 +157,17 @@ class HomeController extends Controller {
   }
 
   /**
+   * 发送模板信息
+   *
+   * @param array $data
+   * @return boolean
+   *
+   */
+  public function sendTplMsg($data){
+    return $this->wechat->sendTemplateMessage($data);
+  }
+
+  /**
    * test inject data
    *
    * @return json

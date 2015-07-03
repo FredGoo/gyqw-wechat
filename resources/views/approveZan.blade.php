@@ -20,7 +20,7 @@
           </div>
           <div class="clearfix">
             <div class="pull-right">
-              <a href="{{ $base_url }}/{{ $order->id }}/reject" class="btn btn-danger btn-lg">不要</a>
+              <a href="{{ $base_url }}/{{ $order->id }}/reject" class="btn btn-danger btn-lg">不给</a>
               <a href="{{ $base_url }}/{{ $order->id }}/ok" class="btn btn-success btn-lg">同意</a>
             </div>
           </div>

@@ -11,6 +11,40 @@ class HomeController extends Controller {
 	}
 
   /**
+   * test
+   *
+   */
+  public function test(){
+    // 取得微信api实例
+    $api = new WechatApi\HomeController;
+
+    $data = [
+      'touser' => 'oT1jZsuJDKBQvaGaghckYCpPDNlo',
+      'template_id' => 'QyTb7PLhkm9tG2HRMHAtB2UluGE0fwCEuGnL8uyiS3c',
+      'url' => action('\App\Http\Controllers\HomeController@my'),
+      'tpcolor' => '#FF0000',
+      'data' => [
+        'num' => [
+          'value' => 100
+        ],
+        'date' =>[
+          'value' => '2015-09-23 21:23:23'
+        ],
+        'content' =>[
+          'value' => 'content'
+        ],
+        'result' =>[
+          'value' => 'ok'
+        ],
+      ]
+    ];
+    $res = $api->sendTplMsg($data);
+
+    var_dump($data);
+    var_dump($res);
+  }
+
+  /**
    * 申请一个赞
    * 表单
    *
@@ -109,6 +143,8 @@ class HomeController extends Controller {
         });
         break;
       }
+
+      // 发送模板信息
     }
 
     $url = action('\App\Http\Controllers\HomeController@approveZan');

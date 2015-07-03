@@ -22,6 +22,8 @@ Route::group(['prefix' => 'api', 'namespace' => 'WechatApi'],function(){
 Route::get('/', function(){
   return 'index';
 });
+// test
+Route::get('test', 'HomeController@test');
 // 申请赞
 Route::get('apply-zan', 'HomeController@applyZan');
 // 提交申请赞
