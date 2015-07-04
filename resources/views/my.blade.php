@@ -21,7 +21,7 @@
         <div class="panel-heading"></div>
 				<div class="panel-body">
           <div class="form-group">
-            宝宝得到{{ $order->num }}个赞
+            {{ $profile->name }}得到{{ $order->num }}个赞
           </div>
           <div class="form-group">
             {{ $order->updated_at }}

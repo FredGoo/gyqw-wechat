@@ -20,9 +20,9 @@ class HomeController extends Controller {
 
     $data = [
       'touser' => 'oT1jZsuJDKBQvaGaghckYCpPDNlo',
-      'template_id' => 'QyTb7PLhkm9tG2HRMHAtB2UluGE0fwCEuGnL8uyiS3c',
+      'template_id' => '9jqPzyngkwInM073oSTZkIg47D8eSnIVuQYHzaP8vxk',
       'url' => action('\App\Http\Controllers\HomeController@my'),
-      'tpcolor' => '#FF0000',
+      'topcolor' => '#FF0000',
       'data' => [
         'num' => [
           'value' => 100
