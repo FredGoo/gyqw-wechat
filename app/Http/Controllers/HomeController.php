@@ -193,17 +193,37 @@ class HomeController extends Controller {
   /**
    * 个人中心
    *
+   * @param string $channel
    * @return void
    *
    */
-  public function my(){
+  public function my($channel = 'received'){
     $userID = \Session::get('userID');
-
-    // 获取订单数据
-    $orders = \DB::table('order')->where(array(
+    $map = array(
       'from_user' => $userID,
       'status' => 200,
-    ))->get();
+    );
+
+    switch($channel){
+    // 发出的赞申请
+    case 'send-ok':
+      break;
+    case 'send-fail':
+      break;
+    case 'send-waiting':
+      break;
+
+    // 收到的赞申请
+    case 'receive-ok':
+      break;
+    case 'receive-fail':
+      break;
+    case 'receive-waiting':
+      break;
+    }
+
+    // 获取订单数据
+    $orders = \DB::table('order')->where($map)->get();
 
     // 获取个人信息
     $profile = \DB::table('users')->where(array(

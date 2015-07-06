@@ -13,8 +13,9 @@
 
 // wechat server api
 Route::group(['prefix' => 'api', 'namespace' => 'WechatApi'],function(){
-    Route::match(['get', 'post'], '/', 'HomeController@index');
+    Route::any('/', 'HomeController@index');
     Route::any('login/{redirect}', 'HomeController@login');
+    // test inject
     Route::get('test-inject-session/{openID}/{userID}', 'HomeController@testInjectSession');
 });
 
@@ -33,4 +34,4 @@ Route::get('approve-zan', 'HomeController@approveZan');
 // 提交审批赞
 Route::get('submit-approve-zan/{orderID?}/{status?}', 'HomeController@submitApproveZan');
 // 个人中心
-Route::get('my', 'HomeController@my');
+Route::get('my/{channel?}', 'HomeController@my');
