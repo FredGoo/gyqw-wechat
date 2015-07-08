@@ -247,7 +247,19 @@ class HomeController extends Controller {
       'id' => $userID,
     ))->first();
 
-    return view('my', ['profile' => $profile, 'orders' => $orders, 'url' => $url, 'channel' => $channel, 'comment' => $comment]);
+    // 获取另一半的个人信息
+    $theOneProfile = \DB::table('users')->where(array(
+      'id' => $profile->the_one,
+    ))->first();
+
+    return view('my', [
+      'profile' => $profile,
+      'theOneProfile' => $theOneProfile,
+      'orders' => $orders,
+      'url' => $url,
+      'channel' => $channel,
+      'comment' => $comment
+    ]);
   }
 
   /**

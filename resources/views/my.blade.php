@@ -15,6 +15,17 @@
 			</div>
       <!-- ./ my -->
 
+      <!-- the one -->
+			<div class="panel panel-primary">
+        <div class="panel-heading"></div>
+				<div class="panel-body">
+          <div class="form-group">
+            {{ $theOneProfile->name }}现在有{{ $theOneProfile->num }}个赞
+          </div>
+				</div>
+			</div>
+      <!-- ./ the one -->
+
       <!-- select -->
       <div class="form-group">
         <select class="form-control" id="select-channel" data-url="{{ $url }}">
