@@ -199,38 +199,54 @@ class HomeController extends Controller {
    */
   public function my($channel = 'received'){
     $userID = \Session::get('userID');
-    $map = array(
-      'from_user' => $userID,
-      'status' => 200,
-    );
+    $url = action('\App\Http\Controllers\HomeController@my');
+    $comment = [
+      'send-ok' => '得到',
+      'send-fail' => '本来想要',
+      'send-waiting' => '想要',
+      'receive-ok' => '得到',
+      'receive-fail' => '本来想要',
+      'receive-waiting' => '想要',
+    ];
 
     switch($channel){
     // 发出的赞申请
     case 'send-ok':
+    default :
+      $map = array('status' => 200, 'from_user' => $userID);
       break;
     case 'send-fail':
+      $map = array('status' => 400, 'from_user' => $userID);
       break;
     case 'send-waiting':
+      $map = array('status' => 0, 'from_user' => $userID);
       break;
 
     // 收到的赞申请
     case 'receive-ok':
+      $map = array('status' => 200, 'to_user' => $userID);
       break;
     case 'receive-fail':
+      $map = array('status' => 400, 'to_user' => $userID);
       break;
     case 'receive-waiting':
+      $map = array('status' => 0, 'to_user' => $userID);
       break;
     }
 
     // 获取订单数据
-    $orders = \DB::table('order')->where($map)->get();
+    $orders = \DB::table('order')
+      ->LeftJoin('users', 'users.id', '=', 'order.from_user')
+      ->where($map)
+      ->select('order.*', 'users.name as user_name')
+      ->get();
 
     // 获取个人信息
     $profile = \DB::table('users')->where(array(
       'id' => $userID,
     ))->first();
 
-    return view('my', ['profile' => $profile, 'orders' => $orders]);
+    return view('my', ['profile' => $profile, 'orders' => $orders, 'url' => $url, 'channel' => $channel, 'comment' => $comment]);
   }
 
   /**
