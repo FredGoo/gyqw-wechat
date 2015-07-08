@@ -239,6 +239,7 @@ class HomeController extends Controller {
       ->LeftJoin('users', 'users.id', '=', 'order.from_user')
       ->where($map)
       ->select('order.*', 'users.name as user_name')
+      ->orderBy('updated_at', 'desc')
       ->get();
 
     // 获取个人信息
