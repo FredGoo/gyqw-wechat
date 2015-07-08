@@ -197,7 +197,7 @@ class HomeController extends Controller {
    * @return void
    *
    */
-  public function my($channel = 'received'){
+  public function my($channel = 'send-ok'){
     $userID = \Session::get('userID');
     $url = action('\App\Http\Controllers\HomeController@my');
     $comment = [
