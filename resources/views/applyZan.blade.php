@@ -19,12 +19,12 @@
               <label>个数</label>
               <select class="form-control" name="num">
                 <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">5</option>
-                <option value="1">10</option>
-                <option value="1">15</option>
-                <option value="1">30</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
               </select>
             </div>
             <div class="form-group">
